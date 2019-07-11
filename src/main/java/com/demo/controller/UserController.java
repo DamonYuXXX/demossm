@@ -6,15 +6,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
 @RequestMapping("/user")
 public class UserController {
     @Autowired
     private UserService userService;
-    @RequestMapping("/select")
-    public String select(Model model){
-        UserEntity user = userService.getUserById(2);
+    @RequestMapping(value="/select",method = RequestMethod.POST)
+    public String select(Model model,int id){
+        UserEntity user = userService.getUserById(id);
+        System.out.println(id);
         model.addAttribute("user",user);
         return "select";
     }
